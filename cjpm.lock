@@ -1,4 +1,0 @@
-version = 0
-
-[requires]
-  httpclient4cj = {branch = "develop", commitId = "3f76df9b43f5016daabfdc46f851cc6970944240", git = "https://gitcode.com/Cangjie-TPC/httpclient4cj.git"}

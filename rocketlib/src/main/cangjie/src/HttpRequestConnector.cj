@@ -1,12 +1,12 @@
-package rocketChat4cj
+package rocketlib
 
 import std.sync.*
 import std.regex.*
 import std.collection.*
-import httpclient4cj
 import httpclient4cj.*
 import encoding.json.*
 import net.http.*
+import std.time.*
 
 public struct Authdata {
     let authToken: String = ""

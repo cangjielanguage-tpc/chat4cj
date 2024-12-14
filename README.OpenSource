@@ -1,11 +1,11 @@
 [
     {
-        "Name": " xxx",
-        "License": " Apache License ",
-        "License File": " LICENSE ",
-        "Version Number": " v2.0 ",
-        "Owner": "xxx"
-        "Upstream URL": "https://github.com/xxx",
-        "Description": " xxx."
+        "Name": "Rocket.Chat",
+        "License": "MIT License",
+        "License File": "LICENSE",
+        "Version Number": "4.5.2",
+        "Owner" : "xiafeng@huawei.com",
+        "Upstream URL": "https://github.com/RocketChat/Rocket.Chat",
+        "Description": "The communications platform that puts data protection first."
     }
 ]
