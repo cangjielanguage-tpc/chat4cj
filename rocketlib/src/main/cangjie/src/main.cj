@@ -1,4 +1,4 @@
-package rocketChat4cj
+package rocketlib
 import encoding.json.*
 import std.collection.*
 main() {
