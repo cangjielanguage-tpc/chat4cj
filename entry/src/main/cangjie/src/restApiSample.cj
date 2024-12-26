@@ -1283,10 +1283,9 @@ class RestApiSample {
     try {
         let res = restAPI.login();
         AppLog.info("onClickLogin data:" + res);
-        let json_data = JsonValue.fromStr(res).asObject()
-        let data = (json_data.get("data").getOrThrow() as JsonObject).getOrThrow()
-        authToken = (data.get("authToken").getOrThrow() as String).getOrThrow()
-        userId = (data.get("userId").getOrThrow() as String).getOrThrow()
+        let data = JsonValue.fromStr(res).asObject()
+        authToken = (data.get("authToken").getOrThrow() as JsonString).getOrThrow().toJsonString()
+        userId = (data.get("userId").getOrThrow() as JsonString).getOrThrow().toJsonString()
         AppLog.info("authToken data:" + authToken);
         AppLog.info("authToken userId:" + userId);
         that.showToast("Success");
@@ -1302,10 +1301,9 @@ class RestApiSample {
     try {
         let res = restAPI.loginWithAuthToken(authToken)
         AppLog.info("onClickLogin data:" + res);
-        let json_data = JsonValue.fromStr(res).asObject()
-        let data = (json_data.get("data").getOrThrow() as JsonObject).getOrThrow()
-        authToken = (data.get("authToken").getOrThrow() as String).getOrThrow()
-        userId = (data.get("userId").getOrThrow() as String).getOrThrow()
+        let data = JsonValue.fromStr(res).asObject()
+        authToken = (data.get("authToken").getOrThrow() as JsonString).getOrThrow().toJsonString()
+        userId = (data.get("userId").getOrThrow() as JsonString).getOrThrow().toJsonString()
         AppLog.info("authToken data:" + authToken);
         AppLog.info("authToken userId:" + userId);
     } catch (e: Exception) {
@@ -1346,7 +1344,7 @@ class RestApiSample {
         AppLog.info("userCreate:" + res);
         let json_data = JsonValue.fromStr(res).asObject()
         let data = (json_data.get("user").getOrThrow() as JsonObject).getOrThrow()
-        userId = (data.get("_id").getOrThrow() as String).getOrThrow()
+        userId = (data.get("_id").getOrThrow() as JsonString).getOrThrow().toJsonString()
         that.showToast("Success");
     } catch (e: Exception) {
         that.showToast("Error :" + e.message);
