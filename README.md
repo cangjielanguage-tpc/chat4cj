@@ -1,59 +1,85 @@
 <div align="center">
-<h1>库名</h1>
+<h1>RocketLib REST API</h1>
 </div>
 
 <p align="center">
 <img alt="" src="https://img.shields.io/badge/release-v0.0.1-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjc-v0.53.4-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-0.0%25-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/state-孵化/毕业-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/domain-HOS/Cloud-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/state-孵化-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/domain-Cloud-brightgreen" style="display: inline-block;" />
 </p>
 
 ## 介绍
 
-简要的介绍库，包括主要完成什么功能，解决什么问题，符合什么标准，应用到哪些领域，有哪些主要的特点等。
+RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangjie 语言客户端库。它提供了完整的 REST API 封装，使开发者能够轻松地实现用户认证、频道管理、消息发送等功能。
 
 ### 项目特性
 
-- 特性1
-
-- 特性2
-
-- 特性3
+- 完整的 Rocket.Chat REST API 支持
+- 支持用户认证和会话管理
+- 频道、群组和消息的全面管理功能
+- 用户管理和权限控制
+- 简单易用的 API 设计
 
 ### 项目计划
 
-介绍开发和维护等关键里程碑
+- v0.0.1: 基础 API 实现
+- v0.1.0: 添加完整的错误处理
+- v1.0.0: 稳定版本发布
 
 ## 项目架构
 
-架构图文说明，包括模块说明、架构层次等详细说明。
+该库采用面向对象的设计方式，主要通过 RestAPI 类提供所有功能。底层使用 HttpRequestConnector 处理具体的 HTTP 请求。
 
 ### 源码目录
 
 ```shell
 .
-├── README.md             #整体介绍
-├── doc                   #文档目录，包括设计文档，API接口文档等
-│   ├── design.md         #设计文档
-│   └── feature_api.md    #特性接口文档
-├── src                   #源码目录
-│   └── Template.cj       #描述关键代码文件的功能
-└── test                  #测试代码目录
+├── README.md                    # 项目说明文档
+├── doc                          # 文档目录
+│   ├── feature_api.md          # API 接口文档
+│   └── design.md               # 设计文档
+├── entry                        # 示例代码目录
+│   └── src
+│       └── main
+│           └── cangjie
+│               └── src
+│                   ├── restApiSample.cj      # API 使用示例
+│                   └── RestApiSamepleEntity.cj # 示例实体类
+├── src
+│   └── main
+│       └── cangjie
+│           └── src
+│               ├── RestAPI.cj   # 主要的 API 实现
+│               └── HttpRequestConnector.cj  # HTTP 请求处理
+└── test                         # 测试代码目录
     ├── HLT
     └── LLT
 ```
 
 ### 接口说明
 
-主要类和函数接口说明，详见 [API](./doc/feature_api.md)
+主要功能分为以下几个模块：
 
+- 认证相关：login、loginWithAuthToken、logout、loggedIn 等
+- 频道管理：
+  - 基础操作：createChannel、archiveChannel、unArchiveChannel 等
+  - 成员管理：addAllChannel、addLeaderChannel、kickChannel 等
+  - 设置管理：setAnnouncementChannel、setCustomFieldsChannel、setTopicChannel 等
+- 群组管理：
+  - 基础操作：groupCreate、groupArchive、groupUnArchive 等
+  - 成员管理：groupAddAll、groupAddOwner、groupKick 等
+  - 设置管理：groupSetDescription、groupSetTopic、groupSetType 等
+- 消息操作：postMessageChat、updateMessageChat、deleteMessageChat
+- 用户管理：userCreate、userDelete、usersInfo、usersPresence、setAvatar 等
+- 访客管理：pageVisited、visitorRegistration、visitor 等
+- 系统管理：settings、me 等
+
+详细 API 文档请参考 [API](./doc/feature_api.md)
 
 ## 使用说明
 ### 编译构建
-
-描述具体的编译过程：
 
 ```shell
 cpm update
@@ -61,50 +87,106 @@ cpm build
 ```
 
 ### 功能示例
-#### xxx 功能示例
+#### 用户登录示例
 
-功能示例描述:
-
-示例代码如下：
+使用用户名和密码登录：
 
 ```cangjie
-import xxx.*
+import rocketlib.*
+
 main() {
- xxxx
+    let api = RestAPI("https://your-rocket-chat-server", "username", "password")
+    let result = api.login()
+    print(result)
 }
 ```
 
-执行结果如下：
+#### 发送消息示例
 
-```shell
-xxx
-```
-
-#### xxxx 功能示例
-
-功能示例描述:
-
-示例代码如下：
+向指定频道发送消息：
 
 ```cangjie
-import xxx.*
+import rocketlib.*
+import encoding.json.*
+
 main() {
- xxxx
+    let api = RestAPI("https://your-rocket-chat-server", "username", "password")
+    api.login()
+    
+    let msgData = JsonObject()
+    msgData.put("channel", JsonString("general"))
+    msgData.put("text", JsonString("Hello, World!"))
+    
+    let result = api.postMessageChat(msgData.toString())
+    print(result)
 }
 ```
 
-执行结果如下：
+#### 频道管理示例
 
-```shell
-xxx
+创建并设置频道：
+
+```cangjie
+import rocketlib.*
+import encoding.json.*
+
+main() {
+    let api = RestAPI("https://your-rocket-chat-server", "username", "password")
+    api.login()
+    
+    // 创建频道
+    let channelData = JsonObject()
+    channelData.put("name", JsonString("new-channel"))
+    channelData.put("members", JsonArray(["user1", "user2"]))
+    let createResult = api.createChannel(channelData.toString())
+    
+    // 设置频道主题
+    let roomId = // 从createResult中获取
+    api.setTopicChannel(roomId, "Welcome to the new channel!")
+}
+```
+
+#### 群组管理示例
+
+创建并管理群组：
+
+```cangjie
+import rocketlib.*
+import encoding.json.*
+
+main() {
+    let api = RestAPI("https://your-rocket-chat-server", "username", "password")
+    api.login()
+    
+    // 创建群组
+    let groupData = JsonObject()
+    groupData.put("name", JsonString("new-group"))
+    groupData.put("members", JsonArray(["user1", "user2"]))
+    let createResult = api.groupCreate(groupData.toString())
+    
+    // 添加群组所有者
+    let groupId = // 从createResult中获取
+    api.groupAddOwner(groupId, "user3")
+}
 ```
 
 ## 约束与限制
-描述环境限制，版本限制，依赖版本等
+
+- 需要 Cangjie 0.53.4 或更高版本
+- 需要有效的 Rocket.Chat 服务器地址
+- 部分 API 可能需要管理员权限
+- API 调用前需要先完成登录
+- 部分高级功能可能受到服务器配置限制
+- 建议在调用API前检查用户权限
 
 ## 开源协议
-[xx License]()
+
+[MIT License](LICENSE)
 
 ## 参与贡献
 
-欢迎给我们提交PR，欢迎给我们提交Issue，欢迎参与任何形式的贡献。
+欢迎通过以下方式参与项目：
+- 提交 Issue 报告问题或建议新功能
+- 提交 Pull Request 改进代码
+- 完善文档和示例
+- 添加测试用例
