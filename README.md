@@ -3,8 +3,8 @@
 </div>
 
 <p align="center">
-<img alt="" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v0.53.18-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/release-v1.0.1-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v0.53.19-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-0.0%25-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/state-孵化-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/domain-Cloud-brightgreen" style="display: inline-block;" />
@@ -168,9 +168,9 @@ main() {
 
 在下述版本验证通过：
 
-    DevEco Studio 5.0.2 Release(5.0.7.200)
-    Cangjie Support Plugin 5.0.7.100
-    Cangjie Compiler: 0.53.18 (cjnative)
+    DevEco Studio 5.0.4 Release(5.0.11.100)
+    Cangjie Support Plugin 5.0.11.100
+    Cangjie Compiler: 0.53.19 (cjnative)
 
 - 需要有效的 Rocket.Chat 服务器地址
 - 部分 API 可能需要管理员权限
