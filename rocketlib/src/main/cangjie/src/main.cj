@@ -5,17 +5,17 @@ package rocketlib
 import encoding.json.*
 import std.collection.*
 main() {
-    let token = "vU_ip7uGU6bOe_yzns020L00t6xggU5BKcXDLNTzNRO"
+    let token = ""
 
     let str_pageData:String  = ##"
 {
-  "token": "iNKE8a6k6cjbqWhWd",
+  "token": "",
   "rid": "vp3D9H8ud6HYvRpvq",
   "pageInfo": {
     "change": "url",
     "title": "",
     "location": {
-      "href": "http://localhost:3000/packages/rocketchat_livechat/assets/demo.html#page-4"
+      "href": ""
     }
   }
 }"##
@@ -26,7 +26,7 @@ main() {
     "name": "Livechat Visitor",
     "email": "visitor@rocket.chat",
     "department": "Livechat Visitor",
-    "token": "iNKE8a6k6cjbqWhWd",
+    "token": "",
     "phone": "55 51 5555-5555",
     "customFields": [
       {
@@ -41,7 +41,7 @@ main() {
 
     let str_visitor_status:String  = ##"
 {
-  "token": "iNKE8a6k6cjbqWhWd",
+  "token": "",
   "status": "busy"
 }"##
 
