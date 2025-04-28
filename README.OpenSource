@@ -4,7 +4,7 @@
         "License": "MIT License",
         "License File": "LICENSE",
         "Version Number": "4.5.2",
-        "Owner" : "xiafeng@huawei.com",
+        "Owner" : "",
         "Upstream URL": "https://github.com/RocketChat/Rocket.Chat",
         "Description": "The communications platform that puts data protection first."
     }
