@@ -1,17 +1,17 @@
 /*
- * @Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights reserved.
+ * Copyright (c) Huawei Technologies Co., Ltd. 2025-2025. All rights reserved.
  */
-
 package ohos_app_cangjie_entry
 
 import ohos.base.*
 import ohos.component.*
 import ohos.state_manage.*
 import ohos.state_macro_manage.*
-import serialization.serialization.*
-import encoding.json.*
+import stdx.serialization.serialization.*
+import stdx.encoding.json.*
+import ohos.hilog.Hilog
 
-public class PageData <: Serializable<PageData>{
+public class PageData <: Serializable<PageData> {
     var token: String = ""
     var rid: String = ""
     var pageInfo: PageInfo = PageInfo()
@@ -27,8 +27,10 @@ public class PageData <: Serializable<PageData>{
     }
 
     public func serialize(): DataModel {
-        return DataModelStruct().add(field<String>("token", token)).add(field<String>("rid", rid))
-        .add(field<PageInfo>("pageInfo", pageInfo))
+        return DataModelStruct()
+            .add(field<String>("token", token))
+            .add(field<String>("rid", rid))
+            .add(field<PageInfo>("pageInfo", pageInfo))
     }
 
     public static func deserialize(dm: DataModel): PageData {
@@ -36,11 +38,12 @@ public class PageData <: Serializable<PageData>{
             case data: DataModelStruct => data
             case _ => throw Exception("this data is not DataModelStruct")
         }
-        return PageData(String.deserialize(dms.get("token")), String.deserialize(dms.get("rid")), PageInfo.deserialize(dms.get("pageInfo")))
+        return PageData(String.deserialize(dms.get("token")), String.deserialize(dms.get("rid")),
+            PageInfo.deserialize(dms.get("pageInfo")))
     }
 }
 
-public class PageInfo <: Serializable<PageInfo>{
+public class PageInfo <: Serializable<PageInfo> {
     var change: String = "";
     var title: String = "";
     var location: Location = Location()
@@ -55,8 +58,10 @@ public class PageInfo <: Serializable<PageInfo>{
     }
 
     public func serialize(): DataModel {
-        return DataModelStruct().add(field<String>("change", change)).add(field<String>("title", title))
-        .add(field<Location>("location", location))
+        return DataModelStruct()
+            .add(field<String>("change", change))
+            .add(field<String>("title", title))
+            .add(field<Location>("location", location))
     }
 
     public static func deserialize(dm: DataModel): PageInfo {
@@ -64,11 +69,12 @@ public class PageInfo <: Serializable<PageInfo>{
             case data: DataModelStruct => data
             case _ => throw Exception("this data is not DataModelStruct")
         }
-        return PageInfo(String.deserialize(dms.get("change")), String.deserialize(dms.get("title")), Location.deserialize(dms.get("location")))
+        return PageInfo(String.deserialize(dms.get("change")), String.deserialize(dms.get("title")),
+            Location.deserialize(dms.get("location")))
     }
 }
 
-public class Location <: Serializable<Location>{
+public class Location <: Serializable<Location> {
     var href: String = ""
 
     init() {
@@ -91,7 +97,7 @@ public class Location <: Serializable<Location>{
     }
 }
 
-public class VisitorInfo <: Serializable<VisitorInfo>{
+public class VisitorInfo <: Serializable<VisitorInfo> {
     var visitor: Visitor = Visitor()
 
     init() {
@@ -116,14 +122,14 @@ public class VisitorInfo <: Serializable<VisitorInfo>{
     }
 }
 
-public class Visitor <: Serializable<Visitor>{
+public class Visitor <: Serializable<Visitor> {
     var name: String = "";
     var email: String = "";
     var token: String = "";
     var phone: String = "";
     var customFields: Array<CustomFields> = []
 
-    init(){
+    init() {
     }
 
     init(name: String, email: String, token: String, phone: String, customFields: Array<CustomFields>) {
@@ -139,8 +145,12 @@ public class Visitor <: Serializable<Visitor>{
     }
 
     public func serialize(): DataModel {
-        return DataModelStruct().add(field<String>("name", name)).add(field<String>("email", email))
-        .add(field<String>("token", token)).add(field<String>("phone", phone)).add(field<Array<CustomFields>>("customFields", customFields))
+        return DataModelStruct()
+            .add(field<String>("name", name))
+            .add(field<String>("email", email))
+            .add(field<String>("token", token))
+            .add(field<String>("phone", phone))
+            .add(field<Array<CustomFields>>("customFields", customFields))
     }
 
     public static func deserialize(dm: DataModel): Visitor {
@@ -148,17 +158,18 @@ public class Visitor <: Serializable<Visitor>{
             case data: DataModelStruct => data
             case _ => throw Exception("this data is not DataModelStruct")
         }
-        return Visitor(String.deserialize(dms.get("name")), String.deserialize(dms.get("email")), String.deserialize(dms.get("token")),
-            String.deserialize(dms.get("phone")), Array<CustomFields>.deserialize(dms.get("customFields")))
+        return Visitor(String.deserialize(dms.get("name")), String.deserialize(dms.get("email")),
+            String.deserialize(dms.get("token")), String.deserialize(dms.get("phone")),
+            Array<CustomFields>.deserialize(dms.get("customFields")))
     }
 }
 
-public class CustomFields <: Serializable<CustomFields>{
+public class CustomFields <: Serializable<CustomFields> {
     var key: String = "";
     var value: String = "";
     var overwrite: Bool = true
 
-    init(){}
+    init() {}
 
     public init(key: String, value: String, overwrite: Bool) {
         this.key = key
@@ -167,8 +178,10 @@ public class CustomFields <: Serializable<CustomFields>{
     }
 
     public func serialize(): DataModel {
-        return DataModelStruct().add(field<String>("key", key)).add(field<String>("value", value))
-        .add(field<Bool>("overwrite", overwrite))
+        return DataModelStruct()
+            .add(field<String>("key", key))
+            .add(field<String>("value", value))
+            .add(field<Bool>("overwrite", overwrite))
     }
 
     public static func deserialize(dm: DataModel): CustomFields {
@@ -176,23 +189,12 @@ public class CustomFields <: Serializable<CustomFields>{
             case data: DataModelStruct => data
             case _ => throw Exception("this data is not DataModelStruct")
         }
-        return CustomFields(String.deserialize(dms.get("key")), String.deserialize(dms.get("value")), Bool.deserialize(dms.get("overwrite")))
+        return CustomFields(String.deserialize(dms.get("key")), String.deserialize(dms.get("value")),
+            Bool.deserialize(dms.get("overwrite")))
     }
 }
 
-public class VisitorStatus {
-    var token: String = "";
-    var status: String = "";
-    public VisitorStatus(token: String, status: String) {}
-}
-
-public class Data {
-    var roomId: String = "";
-    var userId: String = "";
-    public Data(roomId: String, userId: String) {}
-}
-
-public class OptionalParams  <: Serializable<OptionalParams>{
+public class OptionalParams <: Serializable<OptionalParams> {
     var latest: String = "";
     var oldest: String = "";
     var inclusive: Bool = false;
@@ -202,8 +204,13 @@ public class OptionalParams  <: Serializable<OptionalParams>{
     public OptionalParams(latest: String, oldest: String, inclusive: Bool, offset: Int64, count: Int64, unreads: Bool) {}
 
     public func serialize(): DataModel {
-        return DataModelStruct().add(field<String>("latest", latest)).add(field<String>("oldest", oldest)).add(field<Bool>("inclusive", inclusive))
-        .add(field<Int64>("offset", offset)).add(field<Int64>("count", count)).add(field<Bool>("unreads", unreads))
+        return DataModelStruct()
+            .add(field<String>("latest", latest))
+            .add(field<String>("oldest", oldest))
+            .add(field<Bool>("inclusive", inclusive))
+            .add(field<Int64>("offset", offset))
+            .add(field<Int64>("count", count))
+            .add(field<Bool>("unreads", unreads))
     }
 
     public static func deserialize(dm: DataModel): OptionalParams {
@@ -211,14 +218,17 @@ public class OptionalParams  <: Serializable<OptionalParams>{
             case data: DataModelStruct => data
             case _ => throw Exception("this data is not DataModelStruct")
         }
-        return OptionalParams(String.deserialize(dms.get("latest")), String.deserialize(dms.get("oldest")), Bool.deserialize(dms.get("inclusive")),
-            Int64.deserialize(dms.get("offset")), Int64.deserialize(dms.get("count")), Bool.deserialize(dms.get("unreads")))
+        return OptionalParams(String.deserialize(dms.get("latest")), String.deserialize(dms.get("oldest")),
+            Bool.deserialize(dms.get("inclusive")), Int64.deserialize(dms.get("offset")),
+            Int64.deserialize(dms.get("count")), Bool.deserialize(dms.get("unreads")))
     }
 }
 
-public class CustomField  <: Serializable<CustomField>{
+public class CustomField <: Serializable<CustomField> {
     var organization: String = ""
-    public CustomField(organization: String) {}
+    public CustomField(organization: String) {
+        this.organization = organization
+    }
 
     public func serialize(): DataModel {
         return DataModelStruct().add(field<String>("organization", organization))
@@ -233,42 +243,48 @@ public class CustomField  <: Serializable<CustomField>{
     }
 }
 
-public class PostMessageData <: Serializable<PostMessageData>{
+public class PostMessageData <: Serializable<PostMessageData> {
     var channel: String = "";
     var emoji: String = "";
     var roomId: String = "";
     var text: String = "";
     var attachments: Array<Attachments> = []
     init(channel: String, emoji: String, roomId: String, text: String, attachments: Array<Attachments>) {
-    	this.channel = channel
+        this.channel = channel
         this.emoji = emoji
         this.roomId = roomId
         this.text = text
         this.attachments = attachments
     }
     public func serialize(): DataModel {
-        return DataModelStruct().add(field<String>("channel", channel)).add(field<String>("emoji", emoji)).add(field<String>("roomId", roomId))
-        .add(field<String>("text", text)).add(field<Array<Attachments>>("attachments", attachments))
+        return DataModelStruct()
+            .add(field<String>("channel", channel))
+            .add(field<String>("emoji", emoji))
+            .add(field<String>("roomId", roomId))
+            .add(field<String>("text", text))
+            .add(field<Array<Attachments>>("attachments", attachments))
     }
     public static func deserialize(dm: DataModel): PostMessageData {
         var dms = match (dm) {
             case data: DataModelStruct => data
             case _ => throw Exception("this data is not DataModelStruct")
         }
-        var result = PostMessageData(String.deserialize(dms.get("channel")),String.deserialize(dms.get("emoji")),String.deserialize(dms.get("roomId")),
-            String.deserialize(dms.get("text")), Array<Attachments>.deserialize(dms.get("attachments")))
+        var result = PostMessageData(String.deserialize(dms.get("channel")), String.deserialize(dms.get("emoji")),
+            String.deserialize(dms.get("roomId")), String.deserialize(dms.get("text")),
+            Array<Attachments>.deserialize(dms.get("attachments")))
         return result
     }
 }
 
-public class Attachments <: Serializable<Attachments>{
+public class Attachments <: Serializable<Attachments> {
     var audio_url: String = "";
     var author_icon: String = "";
     var author_link: String = "";
     var author_name: String = "";
     var collapsed: Bool = false;
-    var color: Color = Color.WHITE;
+    var color: String = "#ffffff";
     var fields: Array<Fields> = [];
+    var image_url: String = "";
     var message_link: String = "";
     var text: String = "";
     var thumb_url: String = "";
@@ -281,8 +297,9 @@ public class Attachments <: Serializable<Attachments>{
     init() {
     }
 
-    init(audio_url: String, author_icon: String, author_link: String, author_name: String, collapsed: Bool, color: Color, fields: Array<Fields>,
-        message_link: String, text: String, thumb_url: String, title: String, title_link: String, title_link_download: Bool, ts: String, video_url: String) {
+    init(audio_url: String, author_icon: String, author_link: String, author_name: String, collapsed: Bool,
+        color: String, fields: Array<Fields>, image_url: String, message_link: String, text: String, thumb_url: String,
+        title: String, title_link: String, title_link_download: Bool, ts: String, video_url: String) {
         this.audio_url = audio_url
         this.author_icon = author_icon
         this.author_link = author_link
@@ -290,6 +307,7 @@ public class Attachments <: Serializable<Attachments>{
         this.collapsed = collapsed
         this.color = color
         this.fields = fields
+        this.image_url = image_url
         this.message_link = message_link
         this.text = text
         this.thumb_url = thumb_url
@@ -301,10 +319,23 @@ public class Attachments <: Serializable<Attachments>{
     }
 
     public func serialize(): DataModel {
-        return DataModelStruct().add(field<String>("audio_url", audio_url)).add(field<String>("author_icon", author_icon)).add(field<String>("author_link", author_link)).add(field<String>("author_name", author_name))
-        .add(field<Bool>("collapsed", collapsed)).add(field<Array<Fields>>("fields", fields))
-        .add(field<String>("message_link", message_link)).add(field<String>("text", text)).add(field<String>("thumb_url", thumb_url)).add(field<String>("title", title))
-    .add(field<Bool>("title_link_download", title_link_download)).add(field<String>("ts", ts)).add(field<String>("video_url", video_url))
+        return DataModelStruct()
+            .add(field<String>("audio_url", audio_url))
+            .add(field<String>("author_icon", author_icon))
+            .add(field<String>("author_link", author_link))
+            .add(field<String>("author_name", author_name))
+            .add(field<Bool>("collapsed", collapsed))
+            .add(field<String>("color", color))
+            .add(field<Array<Fields>>("fields", fields))
+            .add(field<String>("image_url", image_url))
+            .add(field<String>("message_link", message_link))
+            .add(field<String>("text", text))
+            .add(field<String>("thumb_url", thumb_url))
+            .add(field<String>("title", title))
+            .add(field<String>("title_link", title_link))
+            .add(field<Bool>("title_link_download", title_link_download))
+            .add(field<String>("ts", ts))
+            .add(field<String>("video_url", video_url))
     }
 
     public static func deserialize(dm: DataModel): Attachments {
@@ -317,7 +348,7 @@ public class Attachments <: Serializable<Attachments>{
     }
 }
 
-public class Fields <: Serializable<Fields>{
+public class Fields <: Serializable<Fields> {
     var short: Bool = true;
     var title: String = "";
     var value: String = "";
@@ -331,8 +362,10 @@ public class Fields <: Serializable<Fields>{
     }
 
     public func serialize(): DataModel {
-        return DataModelStruct().add(field<Bool>("short", short)).add(field<String>("title", title))
-        .add(field<String>("value", value))
+        return DataModelStruct()
+            .add(field<Bool>("short", short))
+            .add(field<String>("title", title))
+            .add(field<String>("value", value))
     }
 
     public static func deserialize(dm: DataModel): Fields {
@@ -340,27 +373,10 @@ public class Fields <: Serializable<Fields>{
             case data: DataModelStruct => data
             case _ => throw Exception("this data is not DataModelStruct")
         }
-        var result = Fields(Bool.deserialize(dms.get("short")),String.deserialize(dms.get("title")), String.deserialize(dms.get("value")))
+        var result = Fields(Bool.deserialize(dms.get("short")), String.deserialize(dms.get("title")),
+            String.deserialize(dms.get("value")))
         return result
     }
-}
-
-public class AvatarData {
-    public AvatarData(avatarUrl: String, username: String, userId: String) {}
-}
-
-public class OnClickUsersListData {
-    var fields: FieldsOnClickUsersListData = FieldsOnClickUsersListData();
-    var query: Query = Query()
-    OnClickUsersListData(fields: FieldsOnClickUsersListData, query: Query){}
-}
-
-public class FieldsOnClickUsersListData {
-    var name: Int64 = 0;
-    var emails: Int64 = 0
-    init() {
-    }
-    FieldsOnClickUsersListData(name: Int64, emails: Int64){}
 }
 
 public class Query {
@@ -368,10 +384,10 @@ public class Query {
     var types: Array<String> = []
     init() {
     }
-    Query(active: Bool, types: Array<String>){}
+    Query(active: Bool, types: Array<String>) {}
 }
 
-public class OnClickUsersCreate <: Serializable<OnClickUsersCreate>{
+public class OnClickUsersCreate <: Serializable<OnClickUsersCreate> {
     var name: String = "";
     var email: String = "";
     var password: String = "";
@@ -385,9 +401,8 @@ public class OnClickUsersCreate <: Serializable<OnClickUsersCreate>{
 
     public init() {
     }
-    public init(name: String, email: String, password: String, username: String, active: Bool,
-        roles: Array<String>, joinDefaultChannels: Bool, requirePasswordChange: Bool, sendWelcomeEmail: Bool,
-        verified: Bool) {
+    public init(name: String, email: String, password: String, username: String, active: Bool, roles: Array<String>,
+        joinDefaultChannels: Bool, requirePasswordChange: Bool, sendWelcomeEmail: Bool, verified: Bool) {
         this.name = name
         this.email = email
         this.password = password
@@ -401,9 +416,17 @@ public class OnClickUsersCreate <: Serializable<OnClickUsersCreate>{
     }
 
     public func serialize(): DataModel {
-        return DataModelStruct().add(field<String>("name", name)).add(field<String>("email", email)).add(field<String>("password", password)).add(field<String>("username", username))
-        .add(field<Bool>("active", active)).add(field<Array<String>>("roles", roles))
-        .add(field<Bool>("joinDefaultChannels", joinDefaultChannels)).add(field<Bool>("requirePasswordChange", requirePasswordChange)).add(field<Bool>("sendWelcomeEmail", sendWelcomeEmail)).add(field<Bool>("verified", verified))
+        return DataModelStruct()
+            .add(field<String>("name", name))
+            .add(field<String>("email", email))
+            .add(field<String>("password", password))
+            .add(field<String>("username", username))
+            .add(field<Bool>("active", active))
+            .add(field<Array<String>>("roles", roles))
+            .add(field<Bool>("joinDefaultChannels", joinDefaultChannels))
+            .add(field<Bool>("requirePasswordChange", requirePasswordChange))
+            .add(field<Bool>("sendWelcomeEmail", sendWelcomeEmail))
+            .add(field<Bool>("verified", verified))
     }
 
     public static func deserialize(dm: DataModel): OnClickUsersCreate {
