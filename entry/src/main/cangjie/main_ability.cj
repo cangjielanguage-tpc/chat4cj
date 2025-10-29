@@ -1,19 +1,14 @@
 /*
- * Copyright (c) Huawei Technologies Co., Ltd. 2024-2024. All rights reserved.
+ * Copyright (c) Huawei Technologies Co., Ltd. 2025-2025. All rights reserved.
  */
 package ohos_app_cangjie_entry
 
 internal import ohos.base.AppLog
 internal import ohos.ability.AbilityStage
-internal import ohos.ability.AbilityContext
 internal import ohos.ability.LaunchReason
 internal import cj_res_entry.app
-import ohos.ability.getStageContext
 
 class MainAbility <: Ability {
-
-    static var abilityContext: Option<AbilityContext> = None
-
     public init() {
         super()
         registerSelf()
@@ -29,11 +24,6 @@ class MainAbility <: Ability {
 
     public override func onWindowStageCreate(windowStage: WindowStage): Unit {
         AppLog.info("MainAbility onWindowStageCreate.")
-        abilityContext = this.context
         windowStage.loadContent("EntryView")
-    }
-    
-    public func getStageContext() {
-        return getStageContext(MainAbility.abilityContext.getOrThrow())
     }
 }

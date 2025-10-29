@@ -3,10 +3,10 @@
 </div>
 
 <p align="center">
-<img alt="" src="https://img.shields.io/badge/release-v1.0.1-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v0.53.19-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjcov-0.0%25-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/state-孵化-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v0.53.20-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjcov-NA-red" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/domain-Cloud-brightgreen" style="display: inline-block;" />
 </p>
 
@@ -16,17 +16,11 @@ RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangj
 
 ### 项目特性
 
-- 完整的 Rocket.Chat REST API 支持
+- 支持 Rocket.Chat REST API
 - 支持用户认证和会话管理
 - 频道、群组和消息的全面管理功能
 - 用户管理和权限控制
 - 简单易用的 API 设计
-
-### 项目计划
-
-- v0.0.1: 基础 API 实现
-- v0.1.0: 添加完整的错误处理
-- v1.0.0: 稳定版本发布
 
 ## 项目架构
 
@@ -36,33 +30,29 @@ RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangj
 
 ```shell
 .
-├── README.md                    # 项目说明文档
-├── doc                          # 文档目录
-│   ├── feature_api.md          # API 接口文档
-│   └── design.md               # 设计文档
-├── entry                        # 示例代码目录
-│   └── src
-│       └── main
-│           └── cangjie
-│               └── src
-│                   ├── restApiSample.cj      # API 使用示例
-│                   └── RestApiSamepleEntity.cj # 示例实体类
-├── src
-│   └── main
-│       └── cangjie
-│           └── src
-│               ├── RestAPI.cj   # 主要的 API 实现
-│               └── HttpRequestConnector.cj  # HTTP 请求处理
-└── test                         # 测试代码目录
-    ├── HLT
-    └── LLT
+├── README.md                                  # 项目说明文档
+├── doc                                        # 文档目录
+│    └── feature_api.md                        # API 接口文档
+├── entry                                      # 示例代码目录
+│    └── src
+│         └── main
+│             └── cangjie
+│                  ├── restApiSample.cj        # API 使用示例
+│                  └── RestApiSamepleEntity.cj # 示例实体类
+└── src
+     └── main
+          └── cangjie
+               └── src
+                   ├── RestAPI.cj              # 主要的 API 实现
+                   └── HttpRequestConnector.cj # HTTP 请求处理
+
 ```
 
 ### 接口说明
 
 主要功能分为以下几个模块：
 
-- 认证相关：login、loginWithAuthToken、logout、loggedIn 等
+- 认证相关：login、loginWithAuthToken、logout 等
 - 频道管理：
   - 基础操作：createChannel、archiveChannel、unArchiveChannel 等
   - 成员管理：addAllChannel、addLeaderChannel、kickChannel 等
@@ -87,11 +77,12 @@ RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangj
 
 ```cangjie
 import rocketlib.*
+import ohos.hilog.Hilog
 
 main() {
     let api = RestAPI("https://your-rocket-chat-server", "username", "password")
     let result = api.login()
-    print(result)
+    Hilog.info(0, "RestAPI", "result:${result}")
 }
 ```
 
@@ -101,7 +92,8 @@ main() {
 
 ```cangjie
 import rocketlib.*
-import encoding.json.*
+import stdx.encoding.json.*
+import ohos.hilog.Hilog
 
 main() {
     let api = RestAPI("https://your-rocket-chat-server", "username", "password")
@@ -112,7 +104,7 @@ main() {
     msgData.put("text", JsonString("Hello, World!"))
     
     let result = api.postMessageChat(msgData.toString())
-    print(result)
+    Hilog.info(0, "RestAPI", "result:${result}")
 }
 ```
 
@@ -122,7 +114,8 @@ main() {
 
 ```cangjie
 import rocketlib.*
-import encoding.json.*
+import stdx.encoding.json.*
+import ohos.hilog.Hilog
 
 main() {
     let api = RestAPI("https://your-rocket-chat-server", "username", "password")
@@ -131,11 +124,14 @@ main() {
     // 创建频道
     let channelData = JsonObject()
     channelData.put("name", JsonString("new-channel"))
-    channelData.put("members", JsonArray(["user1", "user2"]))
+    let members = JsonArray()
+    members.add(JsonString("user1"))
+    members.add(JsonString("user2"))
+    channelData.put("members", members)
     let createResult = api.createChannel(channelData.toString())
     
     // 设置频道主题
-    let roomId = // 从createResult中获取
+    let roomId = "xxx" // 需要从createResult中获取频道id
     api.setTopicChannel(roomId, "Welcome to the new channel!")
 }
 ```
@@ -146,7 +142,7 @@ main() {
 
 ```cangjie
 import rocketlib.*
-import encoding.json.*
+import stdx.encoding.json.*
 
 main() {
     let api = RestAPI("https://your-rocket-chat-server", "username", "password")
@@ -155,12 +151,15 @@ main() {
     // 创建群组
     let groupData = JsonObject()
     groupData.put("name", JsonString("new-group"))
-    groupData.put("members", JsonArray(["user1", "user2"]))
+    let members = JsonArray()
+    members.add(JsonString("user1"))
+    members.add(JsonString("user2"))
+    groupData.put("members", members)
     let createResult = api.groupCreate(groupData.toString())
     
     // 添加群组所有者
-    let groupId = // 从createResult中获取
-    api.groupAddOwner(groupId, "user3")
+    let groupId = "xxx" // 需要从createResult中获取群组id
+    api.groupAddOwner(groupId, "user1Id") // 需要传入用户id
 }
 ```
 
@@ -168,13 +167,13 @@ main() {
 
 在下述版本验证通过：
 
-    DevEco Studio 5.0.4 Release(5.0.11.100)
-    Cangjie Support Plugin 5.0.11.100
-    Cangjie Compiler: 0.53.19 (cjnative)
+    DevEco Studio 5.0.5 Release(5.0.13.240)
+    Cangjie Support Plugin 5.0.13.200
+    Cangjie Compiler: 0.53.20 (cjnative)
 
 - 需要有效的 Rocket.Chat 服务器地址
 - 部分 API 可能需要管理员权限
-- API 调用前需要先完成登录
+- 大部分API 调用前需要先完成登录
 - 部分高级功能可能受到服务器配置限制
 - 建议在调用API前检查用户权限
 
