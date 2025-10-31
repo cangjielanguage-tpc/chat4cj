@@ -3,13 +3,7 @@
  */
 package ohos_app_cangjie_entry
 
-import ohos.base.*
-import ohos.component.*
-import ohos.state_manage.*
-import ohos.state_macro_manage.*
 import stdx.serialization.serialization.*
-import stdx.encoding.json.*
-import ohos.hilog.Hilog
 
 public class PageData <: Serializable<PageData> {
     var token: String = ""

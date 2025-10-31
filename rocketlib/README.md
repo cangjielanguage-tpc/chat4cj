@@ -3,10 +3,10 @@
 </div>
 
 <p align="center">
-<img alt="" src="https://img.shields.io/badge/release-v1.0.2-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v1.0.0-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjcov-0.0%25-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v1.0.3-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjcov-NA-red" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/domain-Cloud-brightgreen" style="display: inline-block;" />
 </p>
 
@@ -125,13 +125,13 @@ main() {
     let channelData = JsonObject()
     channelData.put("name", JsonString("new-channel"))
     let members = JsonArray()
-    members.add(JsonString("user1"))
-    members.add(JsonString("user2"))
+    members.add(JsonString("user1")) // 需填实际用户名
+    members.add(JsonString("user2")) // 需填实际用户名
     channelData.put("members", members)
     let createResult = api.createChannel(channelData.toString())
     
     // 设置频道主题
-    let roomId = "xxx" // 需要从createResult中获取频道id
+    let roomId = "xxx" // 需要从createResult中找到频道id
     api.setTopicChannel(roomId, "Welcome to the new channel!")
 }
 ```
@@ -152,13 +152,13 @@ main() {
     let groupData = JsonObject()
     groupData.put("name", JsonString("new-group"))
     let members = JsonArray()
-    members.add(JsonString("user1"))
-    members.add(JsonString("user2"))
+    members.add(JsonString("user1")) // 需填实际用户名
+    members.add(JsonString("user2")) // 需填实际用户名
     groupData.put("members", members)
     let createResult = api.groupCreate(groupData.toString())
     
     // 添加群组所有者
-    let groupId = "xxx" // 需要从createResult中获取群组id
+    let groupId = "xxx" // 需要从createResult中找到群组id
     api.groupAddOwner(groupId, "user1Id") // 需要传入用户id
 }
 ```
@@ -167,9 +167,7 @@ main() {
 
 在下述版本验证通过：
 
-    DevEco Studio 5.1.0 Release(5.1.0.828SP1) 
-    Cangjie Support Plugin 5.1.0.828
-    Cangjie Compiler: 1.0.0(cjnative)
+    DevEco Studio 5.1.1 Release(5.1.1.840) 
 
 - 需要有效的 Rocket.Chat 服务器地址
 - 部分 API 可能需要管理员权限
