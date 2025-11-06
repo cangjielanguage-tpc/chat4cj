@@ -30,21 +30,16 @@ RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangj
 
 ```shell
 .
-├── README.md                                  # 项目说明文档
-├── doc                                        # 文档目录
-│    └── feature_api.md                        # API 接口文档
-├── entry                                      # 示例代码目录
-│    └── src
-│         └── main
-│             └── cangjie
-│                  ├── restApiSample.cj        # API 使用示例
-│                  └── RestApiSamepleEntity.cj # 示例实体类
-└── src
-     └── main
-          └── cangjie
-               └── src
-                   ├── RestAPI.cj              # 主要的 API 实现
-                   └── HttpRequestConnector.cj # HTTP 请求处理
+├── README.md                                   # 介绍及使用说明
+├── doc                                         # 文档目录
+├── entry                                       # 示例代码目录
+│    └── src/main/cangjie
+│                   ├── restApiSample.cj        # API 使用示例
+│                   └── RestApiSamepleEntity.cj # 示例实体类
+└── rocketlib
+     └── src/main/cangjie
+                    ├── RestAPI.cj              # 主要的 API 实现
+                    └── HttpRequestConnector.cj # HTTP 请求处理
 
 ```
 
@@ -66,7 +61,7 @@ RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangj
 - 访客管理：pageVisited、visitorRegistration、visitor 等
 - 系统管理：settings、me 等
 
-详细 API 文档请参考 [API](./doc/feature_api.md)
+详细 API 文档请参考 [API](https://gitcode.com/Cangjie-TPC/chat4cj/blob/chat4cj_cangjie_plugin-5.0.13.240/doc/feature_api.md)
 
 ## 使用说明
 
