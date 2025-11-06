@@ -3,7 +3,7 @@
 </div>
 
 <p align="center">
-<img alt="" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/release-v1.0.1-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjc-v1.0.3-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-NA-red" style="display: inline-block;" />
@@ -30,21 +30,16 @@ RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangj
 
 ```shell
 .
-├── README.md                                  # 项目说明文档
-├── doc                                        # 文档目录
-│    └── feature_api.md                        # API 接口文档
-├── entry                                      # 示例代码目录
-│    └── src
-│         └── main
-│             └── cangjie
-│                  ├── restApiSample.cj        # API 使用示例
-│                  └── RestApiSamepleEntity.cj # 示例实体类
-└── src
-     └── main
-          └── cangjie
-               └── src
-                   ├── RestAPI.cj              # 主要的 API 实现
-                   └── HttpRequestConnector.cj # HTTP 请求处理
+├── README.md                                   # 介绍及使用说明
+├── doc                                         # 文档目录
+├── entry                                       # 示例代码目录
+│    └── src/main/cangjie
+│                   ├── restApiSample.cj        # API 使用示例
+│                   └── RestApiSamepleEntity.cj # 示例实体类
+└── rocketlib
+     └── src/main/cangjie
+                    ├── RestAPI.cj              # 主要的 API 实现
+                    └── HttpRequestConnector.cj # HTTP 请求处理
 
 ```
 
@@ -66,7 +61,7 @@ RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangj
 - 访客管理：pageVisited、visitorRegistration、visitor 等
 - 系统管理：settings、me 等
 
-详细 API 文档请参考 [API](./doc/feature_api.md)
+详细 API 文档请参考 [API](https://gitcode.com/Cangjie-TPC/chat4cj/blob/chat4cj_cangjie_plugin-5.1.1.840/doc/feature_api.md)
 
 ## 使用说明
 
@@ -131,7 +126,7 @@ main() {
     let createResult = api.createChannel(channelData.toString())
     
     // 设置频道主题
-    let roomId = "xxx" // 需要从createResult中找到频道id
+    let roomId = "xxx" // 需要从createResult中获取频道id
     api.setTopicChannel(roomId, "Welcome to the new channel!")
 }
 ```
@@ -158,7 +153,7 @@ main() {
     let createResult = api.groupCreate(groupData.toString())
     
     // 添加群组所有者
-    let groupId = "xxx" // 需要从createResult中找到群组id
+    let groupId = "xxx" // 需要从createResult中获取群组id
     api.groupAddOwner(groupId, "user1Id") // 需要传入用户id
 }
 ```

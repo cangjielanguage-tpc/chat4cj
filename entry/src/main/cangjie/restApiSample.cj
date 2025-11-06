@@ -64,8 +64,7 @@ class RestApiSample {
                             if (success0) {
                                 let bodyObj = (resJson.get("body").getOrThrow() as JsonObject).getOrThrow()
                                 let data = (bodyObj.get("data").getOrThrow() as JsonObject).getOrThrow()
-                                let authToken = (data.get("authToken").getOrThrow() as JsonString)
-                                    .getOrThrow().getValue()
+                                let authToken = (data.get("authToken").getOrThrow() as JsonString).getOrThrow().getValue()
                                 let res = restAPI.loginWithAuthToken(authToken)
                                 Hilog.info(0, "RestAPI", "res:${res}")
                             }
@@ -195,21 +194,10 @@ class RestApiSample {
                             // 需要先登录
                             // 从me里获取当前用户的userId和username用于usersInfo测试
                             let res1 = restAPI.me()
-                            let bodyObj1 = (JsonValue
-                                .fromStr(res1)
-                                .asObject()
-                                .get("body")
-                                .getOrThrow() as JsonObject)
+                            let bodyObj1 = (JsonValue.fromStr(res1).asObject().get("body").getOrThrow() as JsonObject)
                                 .getOrThrow()
-                            let userId = (bodyObj1
-                                .get("_id")
-                                .getOrThrow() as JsonString)
-                                .getOrThrow()
-                                .getValue()
-                            let userName = (bodyObj1
-                                .get("username")
-                                .getOrThrow() as JsonString)
-                                .getOrThrow()
+                            let userId = (bodyObj1.get("_id").getOrThrow() as JsonString).getOrThrow().getValue()
+                            let userName = (bodyObj1.get("username").getOrThrow() as JsonString).getOrThrow()
                                 .getValue()
                             let res = restAPI.usersInfo(userId, "")
                             Hilog.info(0, "RestAPI", "res:${res}")
@@ -235,21 +223,10 @@ class RestApiSample {
                             // 需要先登录
                             // 从me里获取当前用户的userId和username用于usersInfo测试
                             let res1 = restAPI.me()
-                            let bodyObj1 = (JsonValue
-                                .fromStr(res1)
-                                .asObject()
-                                .get("body")
-                                .getOrThrow() as JsonObject)
+                            let bodyObj1 = (JsonValue.fromStr(res1).asObject().get("body").getOrThrow() as JsonObject)
                                 .getOrThrow()
-                            let userId = (bodyObj1
-                                .get("_id")
-                                .getOrThrow() as JsonString)
-                                .getOrThrow()
-                                .getValue()
-                            let userName = (bodyObj1
-                                .get("username")
-                                .getOrThrow() as JsonString)
-                                .getOrThrow()
+                            let userId = (bodyObj1.get("_id").getOrThrow() as JsonString).getOrThrow().getValue()
+                            let userName = (bodyObj1.get("username").getOrThrow() as JsonString).getOrThrow()
                                 .getValue()
                             let res = restAPI.usersPresence(userId, "")
                             Hilog.info(0, "RestAPI", "res:${res}")
@@ -312,10 +289,8 @@ class RestApiSample {
                         => spawn {
 
                             // 这里虚拟一条的页面访问信息：第一个参数固定写死"url"，第二个参数当前页面的标题，第三个参数是当前浏览的网页地址
-                            let pageInfo: PageInfo = PageInfo("url", "网页标题xxx",
-                                Location("https://image.baidu.com/"))
-                            let pageData: PageData = PageData("需填真实的访客token",
-                                "需填真实的Livechat会话房间ID", pageInfo)
+                            let pageInfo: PageInfo = PageInfo("url", "网页标题xxx",Location("https://image.baidu.com/"))
+                            let pageData: PageData = PageData("需填真实的访客token","需填真实的Livechat会话房间ID", pageInfo)
                             let data = pageData.serialize().toJson().asObject().toJsonString()
                             let res = restAPI.pageVisited(data)
                             Hilog.info(0, "RestAPI", " res:${res}")
@@ -371,25 +346,13 @@ class RestApiSample {
                             let res0 = restAPI.visitorRegistration(
                                 visitorInfo.serialize().toJson().asObject().toJsonString())
                             // 获取实际的访客token
-                            let success0 = (JsonValue
-                                .fromStr(res0)
-                                .asObject()
-                                .get("success")
-                                .getOrThrow() as JsonBool)
-                                .getOrThrow()
-                                .getValue()
+                            let success0 = (JsonValue.fromStr(res0).asObject().get("success").getOrThrow() as JsonBool)
+                                .getOrThrow().getValue()
                             if (success0) {
-                                let bodyObj1 = (JsonValue
-                                    .fromStr(res0)
-                                    .asObject()
-                                    .get("body")
-                                    .getOrThrow() as JsonObject)
+                                let bodyObj1 = (JsonValue.fromStr(res0).asObject().get("body").getOrThrow() as JsonObject)
                                     .getOrThrow()
                                 let visitor = (bodyObj1.get("visitor").getOrThrow() as JsonObject).getOrThrow()
-                                let visitorToken = (visitor
-                                    .get("token")
-                                    .getOrThrow() as JsonString)
-                                    .getOrThrow()
+                                let visitorToken = (visitor.get("token").getOrThrow() as JsonString).getOrThrow()
                                     .getValue()
                                 // 注意需要先调用visitorRegistration注册访客后，visitor才能找到
                                 let res = restAPI.visitor(visitorToken)
@@ -418,27 +381,14 @@ class RestApiSample {
                             visitorInfo.setVisitor(visitor)
                             let res0 = restAPI.visitorRegistration(
                                 visitorInfo.serialize().toJson().asObject().toJsonString())
-                            let success0 = (JsonValue
-                                .fromStr(res0)
-                                .asObject()
-                                .get("success")
-                                .getOrThrow() as JsonBool)
-                                .getOrThrow()
-                                .getValue()
+                            let success0 = (JsonValue.fromStr(res0).asObject().get("success").getOrThrow() as JsonBool)
+                                .getOrThrow().getValue()
                             if (success0) {
-                                let bodyObj1 = (JsonValue
-                                    .fromStr(res0)
-                                    .asObject()
-                                    .get("body")
-                                    .getOrThrow() as JsonObject)
+                                let bodyObj1 = (JsonValue.fromStr(res0).asObject().get("body").getOrThrow() as JsonObject)
                                     .getOrThrow()
                                 let visitor = (bodyObj1.get("visitor").getOrThrow() as JsonObject).getOrThrow()
-                                let visitorToken = (visitor
-                                    .get("token")
-                                    .getOrThrow() as JsonString)
-                                    .getOrThrow()
+                                let visitorToken = (visitor.get("token").getOrThrow() as JsonString).getOrThrow()
                                     .getValue()
-
                                 let visitorStatus = JsonObject()
                                 visitorStatus.put("token", JsonString(visitorToken))
                                 visitorStatus.put("status", JsonString("busy"))
@@ -468,25 +418,13 @@ class RestApiSample {
                             visitorInfo.setVisitor(visitor)
                             let res0 = restAPI.visitorRegistration(
                                 visitorInfo.serialize().toJson().asObject().toJsonString())
-                            let success0 = (JsonValue
-                                .fromStr(res0)
-                                .asObject()
-                                .get("success")
-                                .getOrThrow() as JsonBool)
-                                .getOrThrow()
-                                .getValue()
+                            let success0 = (JsonValue.fromStr(res0).asObject().get("success").getOrThrow() as JsonBool)
+                                .getOrThrow().getValue()
                             if (success0) {
-                                let bodyObj1 = (JsonValue
-                                    .fromStr(res0)
-                                    .asObject()
-                                    .get("body")
-                                    .getOrThrow() as JsonObject)
+                                let bodyObj1 = (JsonValue.fromStr(res0).asObject().get("body").getOrThrow() as JsonObject)
                                     .getOrThrow()
                                 let visitor = (bodyObj1.get("visitor").getOrThrow() as JsonObject).getOrThrow()
-                                let visitorToken = (visitor
-                                    .get("token")
-                                    .getOrThrow() as JsonString)
-                                    .getOrThrow()
+                                let visitorToken = (visitor.get("token").getOrThrow() as JsonString).getOrThrow()
                                     .getValue()
                                 let res = restAPI.visitorDelete(visitorToken)
                                 Hilog.info(0, "RestAPI", " res:${res}")
@@ -750,28 +688,13 @@ class RestApiSample {
                                     ":smirk:", channelId, "Hello111111111", attachments)
                                 let dataStr = postMessageData.serialize().toJson().asObject().toJsonString();
                                 let res1 = restAPI.postMessageChat(dataStr)
-                                let success = (JsonValue
-                                    .fromStr(res1)
-                                    .asObject()
-                                    .get("success")
-                                    .getOrThrow() as JsonBool)
-                                    .getOrThrow()
-                                    .getValue()
+                                let success = (JsonValue.fromStr(res1).asObject().get("success").getOrThrow() as JsonBool)
+                                    .getOrThrow().getValue()
                                 if (success) {
-                                    let bodyObj = (JsonValue
-                                        .fromStr(res1)
-                                        .asObject()
-                                        .get("body")
-                                        .getOrThrow() as JsonObject)
+                                    let bodyObj = (JsonValue.fromStr(res1).asObject().get("body").getOrThrow() as JsonObject)
                                         .getOrThrow()
-                                    let message = (bodyObj
-                                        .get("message")
-                                        .getOrThrow() as JsonObject)
-                                        .getOrThrow()
-                                    let messageId = (message
-                                        .get("_id")
-                                        .getOrThrow() as JsonString)
-                                        .getOrThrow()
+                                    let message = (bodyObj.get("message").getOrThrow() as JsonObject).getOrThrow()
+                                    let messageId = (message.get("_id").getOrThrow() as JsonString).getOrThrow()
                                         .getValue()
                                     let text = "Hello Everyone!!"
                                     let reqData = JsonObject()
@@ -1237,13 +1160,11 @@ class RestApiSample {
                                 let optionalParams: OptionalParams = OptionalParams(latest.toString(),
                                     oldest.toString(), inclusive, offset, count, unreads)
                                 // 可以发个附件来测
-                                let res = restAPI.historyChannel(channelId, "",
-                                    JsonValue.fromStr(
-                                        optionalParams.serialize().toJson().asObject().toJsonString()))
+                                let res = restAPI.historyChannel(channelId, "",JsonValue.fromStr(
+                                    optionalParams.serialize().toJson().asObject().toJsonString()))
                                 Hilog.info(0, "RestAPI", " res:${res}")
-                                let res2 = restAPI.historyChannel("", channelName,
-                                    JsonValue.fromStr(
-                                        optionalParams.serialize().toJson().asObject().toJsonString()))
+                                let res2 = restAPI.historyChannel("", channelName,JsonValue.fromStr(
+                                    optionalParams.serialize().toJson().asObject().toJsonString()))
                                 Hilog.info(0, "RestAPI", " res2:${res2}")
                             }
                         }
@@ -1366,15 +1287,8 @@ class RestApiSample {
                             let resJson = JsonValue.fromStr(res1).asObject()
                             let bodyObj = (resJson.get("body").getOrThrow() as JsonObject).getOrThrow()
                             if (let Some(users) <- bodyObj.get("users")) {
-                                let xiaozhouId = (((users as JsonArray)
-                                    .getOrThrow()
-                                    .get(0)
-                                    .getOrThrow() as JsonObject)
-                                    .getOrThrow()
-                                    .get("_id")
-                                    .getOrThrow() as JsonString)
-                                    .getOrThrow()
-                                    .getValue()
+                                let xiaozhouId = (((users as JsonArray).getOrThrow().get(0).getOrThrow() as JsonObject)
+                                    .getOrThrow().get("_id").getOrThrow() as JsonString).getOrThrow().getValue()
                                 // 创建频道
                                 let channelInfo = createTestChannel()
                                 let channelId = channelInfo[0]
@@ -1734,7 +1648,6 @@ class RestApiSample {
                             let channelInfo = createTestChannel()
                             let channelId = channelInfo[0]
                             if (channelInfo.size > 0) {
-                                // channelId can be replaced as first parameter instead of undefined in below api call
                                 let customField: CustomField = CustomField("tra-la-la");
                                 let res = restAPI.setCustomFieldsChannel(channelId,
                                     customField.serialize().toJson().asObject())
