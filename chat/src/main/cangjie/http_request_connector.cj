@@ -3,14 +3,6 @@
  */
 package chat
 
-import std.sync.*
-import std.regex.*
-import std.collection.*
-import httpclient4cj.*
-import stdx.encoding.json.*
-import stdx.net.http.*
-import std.time.*
-
 public class HttpRequestConnector {
     private var serverUrl: String
     private var authToken: String

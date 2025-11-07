@@ -3,8 +3,6 @@
  */
 package chat
 
-import stdx.encoding.json.*
-
 public class RestAPI {
     private var httpRequestConnector: HttpRequestConnector
     private var username: String
