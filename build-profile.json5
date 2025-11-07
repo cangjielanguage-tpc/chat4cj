@@ -39,8 +39,8 @@
       ]
     },
     {
-      "name": "rocketlib",
-      "srcPath": "./rocketlib"
+      "name": "chat",
+      "srcPath": "./chat"
     }
   ]
 }

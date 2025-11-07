@@ -16,7 +16,7 @@
   compile-option = "--dy-std"
   description = "CangjieUI Application"
   link-option = ""
-  name = "rocketlib"
+  name = "chat"
   output-type = "dynamic"
   src-dir = "./src/main/cangjie"
   target-dir = ""
