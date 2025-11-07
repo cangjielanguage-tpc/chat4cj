@@ -1,0 +1,11 @@
+{
+  "name": "@cangjie-tpc/chat",
+  "version": "1.0.0",
+  "description": "Chat RestAPI 是一个用于与 Rocket.Chat 服务器进行交互的 Cangjie 语言客户端库.",
+  "main": "",
+  "author": "cangjie-tpc",
+  "types": "./Index.d.ets",
+  "license": "MIT",
+  "dependencies": {
+  }
+}

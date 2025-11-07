@@ -1,7 +1,7 @@
 /*
  * Copyright (c) Huawei Technologies Co., Ltd. 2025-2025. All rights reserved.
  */
-package rocketlib
+package chat
 
 import std.sync.*
 import std.regex.*

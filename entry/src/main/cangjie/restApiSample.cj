@@ -14,12 +14,13 @@ import ohos.hilog.Hilog
 import ohos.concurrency.launch
 import encoding.json.*
 import std.random.*
-import rocketlib.*
+import chat.*
 
 @Entry
 @Component
 class RestApiSample {
     var restAPI: RestAPI = RestAPI("https://your-rocket-chat-server", "username", "password")
+
     func build() {
         Scroll() {
             Column(5) {
