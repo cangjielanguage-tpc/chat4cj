@@ -14,7 +14,7 @@
       [target.x86_64-unknown-windows-gnu.bin-dependencies.package-option]
 
 [dependencies]
-  [dependencies.cj_res_rocketlib]
+  [dependencies.cj_res_chat]
     path = "./cj_res"
     version = "1.0.0"
   [dependencies.httpclient4cj]
@@ -26,7 +26,7 @@
   compile-option = ""
   description = "CangjieUI Application"
   link-option = ""
-  name = "rocketlib"
+  name = "chat"
   output-type = "dynamic"
   src-dir = "."
   target-dir = ""

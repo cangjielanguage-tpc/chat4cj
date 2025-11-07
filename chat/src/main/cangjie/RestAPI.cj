@@ -1,19 +1,26 @@
 /*
  * Copyright (c) Huawei Technologies Co., Ltd. 2025-2025. All rights reserved.
  */
-package rocketlib
+package chat
 
 import encoding.json.*
 
 public class RestAPI {
     private var httpRequestConnector: HttpRequestConnector
     private var username: String
-    private var password: String
+    private var credentialKey: String
 
-    public init(url: String, username: String, password: String) {
+    /**
+     * 根据参数创建 RestAPI 实例。
+     *
+     * @param url - Rocket.Chat 服务器地址，如http://xxx.x.xxx.x:3000/api/v1/
+     * @param username - 用于登录认证的用户名。
+     * @param credentialKey - 用户的登录凭据（即密码）。
+     */
+    public init(url: String, username: String, credentialKey: String) {
         this.httpRequestConnector = HttpRequestConnector(url)
         this.username = username
-        this.password = password
+        this.credentialKey = credentialKey
     }
 
     // 用户登录
@@ -22,10 +29,10 @@ public class RestAPI {
         let userData = JsonObject()
         if (this.username.contains("@")) {
             userData.put("email", JsonString(this.username))
-            userData.put("password", JsonString(this.password))
+            userData.put("password", JsonString(this.credentialKey))
         } else {
             userData.put("username", JsonString(this.username))
-            userData.put("password", JsonString(this.password))
+            userData.put("password", JsonString(this.credentialKey))
         }
         // 发送登录请求
         let response = this.httpRequestConnector.post("login", userData.toString())
@@ -334,37 +341,7 @@ public class RestAPI {
         } else {
             url = "channels.files?roomName=" + roomName
         }
-        let params = optionalParams.asObject()
-        if (params.get("latest").isSome()) {
-            url += "&latest=" + (params.get("latest").getOrThrow() as JsonString).getOrThrow().getValue()
-        }
-        if (params.get("oldest").isSome()) {
-            url += "&oldest=" + (params.get("oldest").getOrThrow() as JsonString).getOrThrow().getValue()
-        }
-        if (params.get("inclusive").isSome()) {
-            if ((params.get("inclusive").getOrThrow() as JsonBool).getOrThrow().getValue()) {
-                url += "&inclusive=" + "true"
-            } else {
-                url += "&inclusive=" + "false"
-            }
-        }
-        if (params.get("offset").isSome()) {
-            url += "&offset=" + ((params.get("offset").getOrThrow() as JsonInt).getOrThrow().getValue()).toString()
-        } else {
-            url += "&offset=0"
-        }
-        if (params.get("count").isSome()) {
-            url += "&count=" + ((params.get("count").getOrThrow() as JsonInt).getOrThrow().getValue()).toString()
-        } else {
-            url += "&count=20"
-        }
-        if (params.get("unreads").isSome()) {
-            if ((params.get("unreads").getOrThrow() as JsonBool).getOrThrow().getValue()) {
-                url += "&unreads=" + "true"
-            } else {
-                url += "&unreads=" + "false"
-            }
-        }
+        buildHistoryRequest(optionalParams, url)
         let response = this.httpRequestConnector.get(url, "")
         return response.toJsonString()
     }
@@ -683,40 +660,7 @@ public class RestAPI {
     // 获取群组历史消息
     public func groupHistory(roomId: String, optionalParams: JsonValue): String {
         var url = "groups.history?roomId=" + roomId
-        let params = optionalParams.asObject()
-        if (params.get("latest").isSome()) {
-            url += "&latest=" + (params.get("latest").getOrThrow() as JsonString).getOrThrow().getValue()
-        }
-        if (params.get("oldest").isSome()) {
-            url += "&oldest=" + (params.get("oldest").getOrThrow() as JsonString).getOrThrow().getValue()
-        }
-        if (params.get("inclusive").isSome()) {
-            if ((params.get("inclusive").getOrThrow() as JsonBool).getOrThrow().getValue()) {
-                url += "&inclusive=" + "true"
-            } else {
-                url += "&inclusive=" + "false"
-            }
-        }
-
-        if (params.get("offset").isSome()) {
-            url += "&offset=" + ((params.get("offset").getOrThrow() as JsonInt).getOrThrow().getValue()).toString()
-        } else {
-            url += "&offset=0"
-        }
-
-        if (params.get("count").isSome()) {
-            url += "&count=" + ((params.get("count").getOrThrow() as JsonInt).getOrThrow().getValue()).toString()
-        } else {
-            url += "&count=20"
-        }
-
-        if (params.get("unreads").isSome()) {
-            if ((params.get("unreads").getOrThrow() as JsonBool).getOrThrow().getValue()) {
-                url += "&unreads=" + "true"
-            } else {
-                url += "&unreads=" + "false"
-            }
-        }
+        buildHistoryRequest(optionalParams, url)
         let response = this.httpRequestConnector.get(url, "")
         return response.toJsonString()
     }
@@ -808,5 +752,41 @@ public class RestAPI {
         data.put("confirmRelinquish", JsonBool(confirmRelinquish))
         let response = this.httpRequestConnector.post("users.delete", data.toString())
         return response.toJsonString()
+    }
+
+    private func buildHistoryRequest(optionalParams: JsonValue, baseUrl: String): String {
+        var url = baseUrl
+        let params = optionalParams.asObject()
+        if (params.get("latest").isSome()) {
+            url += "&latest=" + (params.get("latest").getOrThrow() as JsonString).getOrThrow().getValue()
+        }
+        if (params.get("oldest").isSome()) {
+            url += "&oldest=" + (params.get("oldest").getOrThrow() as JsonString).getOrThrow().getValue()
+        }
+        if (params.get("inclusive").isSome()) {
+            if ((params.get("inclusive").getOrThrow() as JsonBool).getOrThrow().getValue()) {
+                url += "&inclusive=" + "true"
+            } else {
+                url += "&inclusive=" + "false"
+            }
+        }
+        if (params.get("offset").isSome()) {
+            url += "&offset=" + ((params.get("offset").getOrThrow() as JsonInt).getOrThrow().getValue()).toString()
+        } else {
+            url += "&offset=0"
+        }
+        if (params.get("count").isSome()) {
+            url += "&count=" + ((params.get("count").getOrThrow() as JsonInt).getOrThrow().getValue()).toString()
+        } else {
+            url += "&count=20"
+        }
+        if (params.get("unreads").isSome()) {
+            if ((params.get("unreads").getOrThrow() as JsonBool).getOrThrow().getValue()) {
+                url += "&unreads=" + "true"
+            } else {
+                url += "&unreads=" + "false"
+            }
+        }
+        return url
     }
 }

@@ -1,6 +1,6 @@
 {
   "module": {
-    "name": "rocketlib",
+    "name": "chat",
     "type": "har",
     "deviceTypes": [
       "default"

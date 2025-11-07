@@ -2,12 +2,20 @@
 
 ### 介绍
 
-RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangjie 语言客户端库。它提供了完整的 REST API 封装，使开发者能够轻松地实现用户认证、频道管理、消息发送等功能。
+Chat RestAPI 是一个用于与 Rocket.Chat 服务器进行交互的 Cangjie 语言客户端库。它提供了完整的 RestAPI 封装，使开发者能够轻松地实现用户认证、频道管理、消息发送等功能。
 
 ### RestAPI主要接口
 
 ```
 public class RestAPI {
+    /**
+     * 根据参数创建 RestAPI 实例
+     *
+     * @param url - Rocket.Chat 服务器地址，如http://xxx.x.xxx.x:3000/api/v1/
+     * @param username - 用于登录认证的用户名。
+     * @param credentialKey - 用户的登录凭据（即密码）。
+     */
+    public init(url: String, username: String, credentialKey: String)
 
     // 频道相关 API
     /*

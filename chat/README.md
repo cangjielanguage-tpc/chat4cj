@@ -1,5 +1,5 @@
 <div align="center">
-<h1>RocketLib REST API</h1>
+<h1>Chat RestAPI</h1>
 </div>
 
 <p align="center">
@@ -12,11 +12,11 @@
 
 ## 介绍
 
-RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangjie 语言客户端库。它提供了完整的 REST API 封装，使开发者能够轻松地实现用户认证、频道管理、消息发送等功能。
+Chat RestAPI 是一个用于与 Rocket.Chat 服务器进行交互的 Cangjie 语言客户端库。它提供了完整的 RestAPI 封装，使开发者能够轻松地实现用户认证、频道管理、消息发送等功能。
 
 ### 项目特性
 
-- 支持 Rocket.Chat REST API
+- 支持 Rocket.Chat RestAPI
 - 支持用户认证和会话管理
 - 频道、群组和消息的全面管理功能
 - 用户管理和权限控制
@@ -36,7 +36,7 @@ RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangj
 │    └── src/main/cangjie
 │                   ├── restApiSample.cj        # API 使用示例
 │                   └── RestApiSamepleEntity.cj # 示例实体类
-└── rocketlib
+└── chat
      └── src/main/cangjie
                     ├── RestAPI.cj              # 主要的 API 实现
                     └── HttpRequestConnector.cj # HTTP 请求处理
@@ -65,13 +65,79 @@ RocketLib REST API 是一个用于与 Rocket.Chat 服务器进行交互的 Cangj
 
 ## 使用说明
 
+### 编译构建
+
+1. 通过 module 引入
+    1. 克隆下载项目，将 chat 模块拷贝到应用项目下
+    2. 在自身应用根目录build-profile.json5的"modules"中添加
+       ```json
+       {
+         "name": "chat",
+         "srcPath": "./chat"
+       }
+       ```
+    3. 修改自身应用 entry 下的 oh-package.json5 文件，在 dependencies 字段添加 '@cangjie-tpc/chat': "file:../chat"，点击右上角“Sync Now”
+      ```json
+      {
+        "name": "entry",
+        "version": "1.0.0",
+        "description": "Please describe the basic information.",
+        "main": "",
+        "author": "",
+        "license": "",
+        "dependencies": {
+          '@cangjie-tpc/chat': "file:../chat"
+        }
+      }
+      ```
+    4. 在entry/src/main/module.json5的"modules"中添加
+      ```json
+      "requestPermissions": [
+        {
+          "name": "ohos.permission.INTERNET"
+        },
+        {
+          "name": "ohos.permission.GET_NETWORK_INFO"
+        }
+      ]
+      ```
+    5. 在项目中使用 chat
+      ```cangjie
+      import chat.*
+      ```
+2. 把 chat 作为三方库依赖引入
+    1. 克隆下载项目
+	2. 用DevEco Studio打开工程，选中chat目录，点击顶部菜单栏“Build”-“Make Module ‘chat’”构建
+    3. 构建成功后，在chat的build/default/outputs目录中找到chat.har，将chat.har拷贝到需要引入的工程中。例如，在需要引入的工程entry目录下新建一个har目录，将chat.har拷贝进去
+	4. 打开 entry/oh-package.json5 在 “dependencies” 字段下添加'@cangjie-tpc/chat':   "file:../entry/har/chat.har"，点击右上角“Sync Now”
+      ```json
+      "dependencies": {
+        '@cangjie-tpc/chat': "file:../entry/har/chat.har"
+      }
+      ```
+    5. 在entry/src/main/module.json5的"modules"中添加
+      ```json
+      "requestPermissions": [
+        {
+          "name": "ohos.permission.INTERNET"
+        },
+        {
+          "name": "ohos.permission.GET_NETWORK_INFO"
+        }
+      ]
+      ```
+    6. 在项目中使用 chat
+      ```cangjie
+      import chat.*
+      ```
+
 ### 功能示例
 #### 用户登录示例
 
 使用用户名和密码登录：
 
 ```cangjie
-import rocketlib.*
+import chat.*
 import ohos.hilog.Hilog
 
 main() {
@@ -86,7 +152,7 @@ main() {
 向指定频道发送消息：
 
 ```cangjie
-import rocketlib.*
+import chat.*
 import stdx.encoding.json.*
 import ohos.hilog.Hilog
 
@@ -108,7 +174,7 @@ main() {
 创建并设置频道：
 
 ```cangjie
-import rocketlib.*
+import chat.*
 import stdx.encoding.json.*
 import ohos.hilog.Hilog
 
@@ -136,7 +202,7 @@ main() {
 创建并管理群组：
 
 ```cangjie
-import rocketlib.*
+import chat.*
 import stdx.encoding.json.*
 
 main() {
