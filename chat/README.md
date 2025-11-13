@@ -67,15 +67,19 @@ Chat RestAPI 是一个用于与 Rocket.Chat 服务器进行交互的 Cangjie 语
 
 ### 编译构建
 
+前置条件：
+
+项目在 cjpm.toml 中依赖 stdx，需配置 stdx 环境变量CANGJIE_STDX_PATH。stdx获取请参考：[cangjie_stdx](https://gitcode.com/Cangjie/cangjie_stdx)
+
 1. 通过 module 引入
     1. 克隆下载项目，将 chat 模块拷贝到应用项目下
     2. 在自身应用根目录build-profile.json5的"modules"中添加
-       ```json
-       {
-         "name": "chat",
-         "srcPath": "./chat"
-       }
-       ```
+      ```json
+      {
+        "name": "chat",
+        "srcPath": "./chat"
+      }
+      ```
     3. 修改自身应用 entry 下的 oh-package.json5 文件，在 dependencies 字段添加 '@cangjie-tpc/chat': "file:../chat"，点击右上角“Sync Now”
       ```json
       {
