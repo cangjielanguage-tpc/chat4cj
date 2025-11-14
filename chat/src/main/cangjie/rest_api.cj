@@ -135,8 +135,12 @@ public class RestAPI {
 
     // 获取访客信息
     public func visitor(token: String): String {
-        let response = this.httpRequestConnector.get("livechat/visitor/${token}", "")
-        return response.toJsonString()
+        try {
+            let response = this.httpRequestConnector.get("livechat/visitor/${token}", "")
+            return response.toJsonString()
+        } catch (e: Exception) {
+            return handleException(e)
+        }
     }
 
     // 设置访客状态
