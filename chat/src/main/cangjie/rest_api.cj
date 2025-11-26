@@ -75,8 +75,12 @@ public class RestAPI {
     // 获取用户列表
     public func usersList(query: String, fields: String, sort: String, count: Int64, offset: Int64): String {
         var url = "users.list?query=${query}&fields=${fields}&sort=${sort}&offset=${offset}&count=${count}"
-        let response = this.httpRequestConnector.get(url, "")
-        return response.toJsonString()
+        try {
+            let response = this.httpRequestConnector.get(url, "")
+            return response.toJsonString()
+        } catch (e: Exception) {
+            return handleException(e)
+        }
     }
 
     // 获取用户信息
@@ -131,8 +135,12 @@ public class RestAPI {
 
     // 获取访客信息
     public func visitor(token: String): String {
-        let response = this.httpRequestConnector.get("livechat/visitor/${token}", "")
-        return response.toJsonString()
+        try {
+            let response = this.httpRequestConnector.get("livechat/visitor/${token}", "")
+            return response.toJsonString()
+        } catch (e: Exception) {
+            return handleException(e)
+        }
     }
 
     // 设置访客状态
@@ -339,9 +347,13 @@ public class RestAPI {
         } else {
             url = "channels.files?roomName=" + roomName
         }
-        buildHistoryRequest(optionalParams, url)
-        let response = this.httpRequestConnector.get(url, "")
-        return response.toJsonString()
+        try {
+            buildHistoryRequest(optionalParams, url)
+            let response = this.httpRequestConnector.get(url, "")
+            return response.toJsonString()
+        } catch (e: Exception) {
+            return handleException(e)
+        }
     }
 
     // 获取频道信息
@@ -409,9 +421,13 @@ public class RestAPI {
     // 获取频道当前在线用户
     public func onlineChannel(roomId: String): String {
         let id = JsonObject()
-        id.put("_id", JsonString(roomId))
-        let response = this.httpRequestConnector.get("channels.online?query=" + id.toString(), "")
-        return response.toJsonString()
+        try {
+            id.put("_id", JsonString(roomId))
+            let response = this.httpRequestConnector.get("channels.online?query=" + id.toString(), "")
+            return response.toJsonString()
+        } catch (e: Exception) {
+            return handleException(e)
+        }
     }
 
     // 获取频道中所有提及信息
@@ -487,8 +503,12 @@ public class RestAPI {
     public func messageChannel(roomId: String, count!: UInt64 = 50, sort!: String = "{\"ts\": -1}", offset!: UInt64 = 0): String {
         var channelData: String = "channels.messages?roomId=" + roomId
         channelData += "&count=" + count.toString() + "&sort=" + sort + "&offset=" + offset.toString()
-        let response = this.httpRequestConnector.get(channelData, "")
-        return response.toJsonString()
+        try {
+            let response = this.httpRequestConnector.get(channelData, "")
+            return response.toJsonString()
+        } catch (e: Exception) {
+            return handleException(e)
+        }
     }
 
     // 设置频道自定义字段
@@ -658,9 +678,13 @@ public class RestAPI {
     // 获取群组历史消息
     public func groupHistory(roomId: String, optionalParams: JsonValue): String {
         var url = "groups.history?roomId=" + roomId
-        buildHistoryRequest(optionalParams, url)
-        let response = this.httpRequestConnector.get(url, "")
-        return response.toJsonString()
+        try {
+            buildHistoryRequest(optionalParams, url)
+            let response = this.httpRequestConnector.get(url, "")
+            return response.toJsonString()
+        } catch (e: Exception) {
+            return handleException(e)
+        }
     }
 
     // 删除群组
@@ -786,5 +810,13 @@ public class RestAPI {
             }
         }
         return url
+    }
+
+    private func handleException(exception: Exception): String {
+        let response = JsonObject()
+        response.put("success", JsonBool(false))
+        response.put("code", JsonInt(0))
+        response.put("errmsg", JsonString(exception.message))
+        return response.toJsonString()
     }
 }
