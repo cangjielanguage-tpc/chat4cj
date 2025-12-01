@@ -39,6 +39,7 @@ Chat RestAPI 是一个用于与 Rocket.Chat 服务器进行交互的 Cangjie 语
 └── chat
      └── src/main/cangjie
                     ├── rest_api.cj               # 主要的 API 实现
+                    ├── package.cj                # 依赖模块
                     └── http_request_connector.cj # HTTP 请求处理
 
 ```
