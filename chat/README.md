@@ -3,9 +3,9 @@
 </div>
 
 <p align="center">
-<img alt="" src="https://img.shields.io/badge/release-v1.0.1-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/release-v1.0.2-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v1.0.3-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v1.1.3-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/cjcov-95.1%25-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/domain-Cloud-brightgreen" style="display: inline-block;" />
 </p>
@@ -62,7 +62,7 @@ Chat RestAPI 是一个用于与 Rocket.Chat 服务器进行交互的 Cangjie 语
 - 访客管理：pageVisited、visitorRegistration、visitor 等
 - 系统管理：settings、me 等
 
-详细 API 文档请参考 [API](https://gitcode.com/Cangjie-TPC/chat4cj/blob/chat4cj_cangjie_plugin-5.1.1.840/doc/feature_api.md)
+详细 API 文档请参考 [API](https://gitcode.com/Cangjie-TPC/chat4cj/blob/chat4cj_cangjie_plugin_6.1.1_compatibility/doc/feature_api.md)
 
 ## 使用说明
 
@@ -233,13 +233,14 @@ main() {
 
 在下述版本验证通过：
 
-    DevEco Studio 5.1.1 Release(5.1.1.840) 
+    DevEco Studio 6.1.1 Release(6.1.1.280)
 
 - 需要有效的 Rocket.Chat 服务器地址
 - 部分 API 可能需要管理员权限
 - 大部分API 调用前需要先完成登录
 - 部分高级功能可能受到服务器配置限制
 - 建议在调用API前检查用户权限
+- SdkVersion需使用20及以上版本
 
 ## 开源协议
 本项目基于 [MIT License](./LICENSE)，请自由的享受和参与开源。

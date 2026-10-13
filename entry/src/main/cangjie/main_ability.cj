@@ -1,14 +1,11 @@
-/*
- * Copyright (c) Huawei Technologies Co., Ltd. 2025-2025. All rights reserved.
- */
 package ohos_app_cangjie_entry
 
-internal import ohos.base.AppLog
-internal import ohos.ability.Want
-internal import ohos.ability.UIAbility
-internal import ohos.ability.LaunchParam
-internal import ohos.ability.LaunchReason
-internal import ohos.window.WindowStage
+import kit.PerformanceAnalysisKit.Hilog
+import ohos.ability.Want
+import ohos.ability.UIAbility
+import ohos.ability.LaunchParam
+import ohos.ability.LaunchReason
+import ohos.window.WindowStage
 
 class MainAbility <: UIAbility {
     public init() {
@@ -17,15 +14,15 @@ class MainAbility <: UIAbility {
     }
 
     public override func onCreate(want: Want, launchParam: LaunchParam): Unit {
-        AppLog.info("MainAbility OnCreated.${want.abilityName}")
+        Hilog.info(1, "Cangjie", "MainAbility OnCreated.${want.abilityName}")
         match (launchParam.launchReason) {
-            case LaunchReason.START_ABILITY => AppLog.info("START_ABILITY")
+            case LaunchReason.START_ABILITY => Hilog.info(1, "Cangjie", "START_ABILITY")
             case _ => ()
         }
     }
 
     public override func onWindowStageCreate(windowStage: WindowStage): Unit {
-        AppLog.info("MainAbility onWindowStageCreate.")
+        Hilog.info(1, "Cangjie", "MainAbility onWindowStageCreate.")
         windowStage.loadContent("EntryView")
     }
 }
