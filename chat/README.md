@@ -3,10 +3,10 @@
 </div>
 
 <p align="center">
-<img alt="" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/release-v1.0.2-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjc-v0.53.20-brightgreen" style="display: inline-block;" />
-<img alt="" src="https://img.shields.io/badge/cjcov-NA-red" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjc-v1.1.3-brightgreen" style="display: inline-block;" />
+<img alt="" src="https://img.shields.io/badge/cjcov-95.1%25-brightgreen" style="display: inline-block;" />
 <img alt="" src="https://img.shields.io/badge/domain-Cloud-brightgreen" style="display: inline-block;" />
 </p>
 
@@ -62,21 +62,25 @@ Chat RestAPI 是一个用于与 Rocket.Chat 服务器进行交互的 Cangjie 语
 - 访客管理：pageVisited、visitorRegistration、visitor 等
 - 系统管理：settings、me 等
 
-详细 API 文档请参考 [API](https://gitcode.com/Cangjie-TPC/chat4cj/blob/chat4cj_cangjie_plugin-5.0.13.240/doc/feature_api.md)
+详细 API 文档请参考 [API](https://gitcode.com/Cangjie-TPC/chat4cj/blob/develop/doc/feature_api.md)
 
 ## 使用说明
 
 ### 编译构建
 
+前置条件：
+
+项目在 cjpm.toml 中依赖 stdx，需配置 stdx 环境变量CANGJIE_STDX_PATH。stdx获取请参考：[cangjie_stdx](https://gitcode.com/Cangjie/cangjie_stdx)
+
 1. 通过 module 引入
     1. 克隆下载项目，将 chat 模块拷贝到应用项目下
     2. 在自身应用根目录build-profile.json5的"modules"中添加
-       ```json
-       {
-         "name": "chat",
-         "srcPath": "./chat"
-       }
-       ```
+      ```json
+      {
+        "name": "chat",
+        "srcPath": "./chat"
+      }
+      ```
     3. 修改自身应用 entry 下的 oh-package.json5 文件，在 dependencies 字段添加 '@cangjie-tpc/chat': "file:../chat"，点击右上角“Sync Now”
       ```json
       {
@@ -187,8 +191,8 @@ main() {
     let channelData = JsonObject()
     channelData.put("name", JsonString("new-channel"))
     let members = JsonArray()
-    members.add(JsonString("user1"))
-    members.add(JsonString("user2"))
+    members.add(JsonString("user1")) // 需填实际用户名
+    members.add(JsonString("user2")) // 需填实际用户名
     channelData.put("members", members)
     let createResult = api.createChannel(channelData.toString())
     
@@ -214,8 +218,8 @@ main() {
     let groupData = JsonObject()
     groupData.put("name", JsonString("new-group"))
     let members = JsonArray()
-    members.add(JsonString("user1"))
-    members.add(JsonString("user2"))
+    members.add(JsonString("user1")) // 需填实际用户名
+    members.add(JsonString("user2")) // 需填实际用户名
     groupData.put("members", members)
     let createResult = api.groupCreate(groupData.toString())
     
@@ -229,15 +233,14 @@ main() {
 
 在下述版本验证通过：
 
-    DevEco Studio 5.0.5 Release(5.0.13.240)
-    Cangjie Support Plugin 5.0.13.200
-    Cangjie Compiler: 0.53.20 (cjnative)
+    DevEco Studio 6.1.1 Release(6.1.1.280)
 
 - 需要有效的 Rocket.Chat 服务器地址
 - 部分 API 可能需要管理员权限
 - 大部分API 调用前需要先完成登录
 - 部分高级功能可能受到服务器配置限制
 - 建议在调用API前检查用户权限
+- SdkVersion需使用20及以上版本
 
 ## 开源协议
 本项目基于 [MIT License](./LICENSE)，请自由的享受和参与开源。
