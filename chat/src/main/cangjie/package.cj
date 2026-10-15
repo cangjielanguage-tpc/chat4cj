@@ -7,6 +7,6 @@ internal import std.sync.*
 internal import std.regex.*
 internal import std.collection.*
 internal import httpclient4cj.*
-internal import encoding.json.*
-internal import net.http.*
+internal import stdx.encoding.json.*
+internal import stdx.net.http.*
 internal import std.time.*

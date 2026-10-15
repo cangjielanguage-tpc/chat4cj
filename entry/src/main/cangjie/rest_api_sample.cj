@@ -1,18 +1,13 @@
-/*
- * Copyright (c) Huawei Technologies Co., Ltd. 2025-2025. All rights reserved.
- */
 package ohos_app_cangjie_entry
 
 import ohos.base.*
 import ohos.component.*
 import ohos.state_manage.*
 import ohos.state_macro_manage.*
-import ohos.prompt_action.PromptAction
 import std.time.DateTime
-import serialization.serialization.DataModel
+import stdx.serialization.serialization.DataModel
 import ohos.hilog.Hilog
-import ohos.concurrency.launch
-import encoding.json.*
+import stdx.encoding.json.*
 import std.random.*
 import chat.*
 

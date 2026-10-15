@@ -103,9 +103,9 @@ public class HttpRequestConnector {
     public func setUserData(authToken: String, userID: String): Unit {
         var token: ArrayList<String> = ArrayList<String>(1)
         var id: ArrayList<String> = ArrayList<String>(1)
-        token.append(authToken)
+        token.add(authToken)
         this.headers.set("X-Auth-Token", token)
-        id.append(userID)
+        id.add(userID)
         this.headers.set("X-User-Id", id)
     }
 }
